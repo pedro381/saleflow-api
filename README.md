@@ -1,3 +1,60 @@
+# DeveloperStore Sales API
+
+## Overview
+This project is a Sales API for the DeveloperStore team, developed using .NET 8.0 and follows Domain-Driven Design (DDD) principles. It provides a complete CRUD implementation for managing sales records while enforcing business rules for discounts and item quantity restrictions.
+
+## Features
+- Create, Read, Update, and Delete (CRUD) operations for sales.
+- Business rules:
+  - Purchases of 4+ identical items receive a 10% discount.
+  - Purchases of 10-20 identical items receive a 20% discount.
+  - Purchases cannot exceed 20 identical items.
+  - No discounts for purchases below 4 items.
+- Event logging for:
+  - SaleCreated
+  - SaleModified
+  - SaleCancelled
+  - ItemCancelled
+
+## Getting Started
+### Prerequisites
+Ensure you have the following installed:
+- .NET 8.0 SDK: [Download](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- PostgreSQL or MongoDB
+- Angular CLI (if running the frontend)
+- Docker (optional, for containerized setup)
+
+### Database Migrations (if using EF Core)
+```sh
+dotnet ef database update
+```
+
+### Running the API
+```sh
+dotnet run
+```
+The API will be available at `http://localhost:5000`
+
+### Running Tests
+```sh
+dotnet test
+```
+
+## API Endpoints
+### Sales CRUD
+- **GET /api/sales** - Retrieve all sales
+- **GET /api/sales/{id}** - Retrieve a specific sale by ID
+- **POST /api/sales** - Create a new sale
+- **PUT /api/sales/{id}** - Update an existing sale
+- **DELETE /api/sales/{id}** - Delete a sale
+
+## Contribution
+Feel free to fork the repository and submit pull requests. Ensure all changes are covered by unit tests.
+
+## License
+This project is licensed under the MIT License.
+
+
 # Developer Evaluation Project
  
 `READ CAREFULLY`
