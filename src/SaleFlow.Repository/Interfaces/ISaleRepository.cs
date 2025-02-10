@@ -8,7 +8,6 @@ namespace SaleFlow.Repository.Interfaces
         Task UpdateSaleAsync(Sale sale);
         Task DeleteSaleAsync(string saleNumber);
         Task<Sale?> GetSaleByNumberAsync(string saleNumber);
-        Task<IEnumerable<Sale>> GetAllSalesAsync();
-        // Optionally, add methods to support filtering, pagination, etc.
+        Task<(IEnumerable<Sale>, int)> GetPagedSalesAsync(int pageNumber, int pageSize);
     }
 }

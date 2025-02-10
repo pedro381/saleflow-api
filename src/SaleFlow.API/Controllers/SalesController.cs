@@ -37,18 +37,16 @@ namespace SaleFlow.API.Controllers
                 // For demonstration, GetSalesQuery returns all sales.
                 // You can extend the query with pagination, filtering, and ordering parameters.
                 var query = new GetSalesQuery();
-                var sales = await _mediator.Send(query);
-
-                // Simulate pagination by slicing the results.
-                var totalItems = sales != null ? sales.Count() : 0;
-                var pagedData = sales != null ? sales.ToList().GetRange((page - 1) * size, Math.Min(size, totalItems - ((page - 1) * size))) : new List<SaleDto>();
+                query.PageNumber = page;
+                query.PageSize = size;
+                var (sales, total) = await _mediator.Send(query);
 
                 var response = new
                 {
-                    data = pagedData,
-                    totalItems,
+                    data = sales,
+                    total,
                     currentPage = page,
-                    totalPages = (int)Math.Ceiling(totalItems / (double)size)
+                    totalPages = (int)Math.Ceiling(total / (double)size)
                 };
 
                 return Ok(response);
