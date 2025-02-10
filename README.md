@@ -3,19 +3,6 @@
 ## Overview
 This project is a Sales API for the DeveloperStore team, developed using .NET 8.0 and follows Domain-Driven Design (DDD) principles. It provides a complete CRUD implementation for managing sales records while enforcing business rules for discounts and item quantity restrictions.
 
-## Features
-- Create, Read, Update, and Delete (CRUD) operations for sales.
-- Business rules:
-  - Purchases of 4+ identical items receive a 10% discount.
-  - Purchases of 10-20 identical items receive a 20% discount.
-  - Purchases cannot exceed 20 identical items.
-  - No discounts for purchases below 4 items.
-- Event logging for:
-  - SaleCreated
-  - SaleModified
-  - SaleCancelled
-  - ItemCancelled
-
 ## Getting Started
 ### Prerequisites
 Ensure you have the following installed:
