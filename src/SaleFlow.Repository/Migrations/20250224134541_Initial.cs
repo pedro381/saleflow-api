@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace SaleFlow.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCapturedPokemonTable : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,10 +16,10 @@ namespace SaleFlow.Repository.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExternalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CustomerId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ExternalId = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,13 +30,13 @@ namespace SaleFlow.Repository.Migrations
                 name: "Sales",
                 columns: table => new
                 {
-                    SaleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SaleNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SaleDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Branch = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCancelled = table.Column<bool>(type: "bit", nullable: false)
+                    SaleId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SaleNumber = table.Column<string>(type: "text", nullable: false),
+                    SaleDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CustomerId = table.Column<int>(type: "integer", nullable: false),
+                    Branch = table.Column<string>(type: "text", nullable: false),
+                    IsCancelled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,13 +53,13 @@ namespace SaleFlow.Repository.Migrations
                 name: "SaleItems",
                 columns: table => new
                 {
-                    SaleItemId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalItemAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsCancelled = table.Column<bool>(type: "bit", nullable: false)
+                    SaleItemId = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
+                    Discount = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
+                    TotalItemAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    IsCancelled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

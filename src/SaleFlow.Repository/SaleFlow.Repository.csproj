@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SaleFlow.Domain\SaleFlow.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

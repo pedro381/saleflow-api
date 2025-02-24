@@ -12,20 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-/*builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection("MongoDbOptions"));
-builder.Services.AddSingleton<IMongoClient>(sp =>
-{
-    var options = sp.GetRequiredService<IOptions<MongoDbOptions>>().Value;
-    return new MongoClient(options.ConnectionString);
-});
-builder.Services.AddScoped<MongoDbContext>();*/
-
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection("DatabaseOptions"));
+
 builder.Services.AddDbContext<SaleFlowDbContext>(options =>
 {
     var dbOptions = builder.Configuration.GetSection("DatabaseOptions").Get<DatabaseOptions>();
-    options.UseSqlServer(dbOptions?.ConnectionString); 
-}); 
+    options.UseNpgsql(dbOptions?.ConnectionString);
+});
 
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<ISaleItemRepository, SaleItemRepository>();
@@ -43,6 +36,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<SaleFlowDbContext>();
+    dbContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
